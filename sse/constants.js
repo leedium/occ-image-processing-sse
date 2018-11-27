@@ -40,7 +40,7 @@ module.exports = {
   SAY_HELLO: '/servicebasic/sayHello',
   GET_PLANETS: '/serviceexternal/getPlanet',
   //
-  OCC_DEPLOY_HOST: 'https://ccadmin-z4ma.oracleoutsourcing.com',
+  OCC_DEPLOY_HOST: '{HOST',
   OCC_ENDPOINT_CURRENT_PROFILE: '/ccstoreui/v1/profiles/current',
   OCC_ENDPOINT_PROFILE: '/ccstoreui/v1/profiles',
   OCC_ENDPOINT_LOGIN: '/ccadmin/v1/login',
