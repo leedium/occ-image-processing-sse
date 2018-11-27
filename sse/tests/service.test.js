@@ -14,6 +14,7 @@ const supertest = require('supertest');
 const constants = require('../constants');
 const config = require('../config.json');
 const readJSONFile = require('../core/helpers').readJSONFile;
+const resizeRequest = readJSONFile(`../${config.testFolder}/json/processImage-resize-req.json`)
 
 describe('====== Utility Routes ======', function () {
   let app;
@@ -51,22 +52,20 @@ describe('====== Utility Routes ======', function () {
    * Tests a vaild Response from the live endpoint
    * Live Endpoint : for URL see constants.SEARCH_ENDPOINT
    */
-  // it(`- Returns a valid message \n\t${constants.SAY_HELLO} \n\t- original search string\n\t- result object\n\t\t-- status\n\t\t-- response\n`, function (done) {
-  //   global.testMode = false;
-  //   let payload = readJSONFile(`../${config.testFolder}/json/serviceBasic-test-req.json`);
-  //   supertest(app)
-  //     .post(`${constants.ROUTE_BASE}${constants.SAY_HELLO}`)
-  //     .set({'env': 'preview'})
-  //     .send(payload)
-  //     .expect(constants.HTTP_RESPONSE_SUCCESS)
-  //     .end(function (err, res) {
-  //       if (err) {
-  //         done(err);
-  //         return;
-  //       }
-  //       expect(res.body).to.have.property('message');
-  //       expect(res.body.message).to.be('hello LEEDIUM');
-  //       done();
-  //     });
-  // }).timeout(config.testTimeout);
+  it(`- Resizes a base64 image \n\t${constants.OCC_IMAGE_PROCESS_ENDPOINT} \n`, function (done) {
+    global.testMode = false;
+    let payload = resizeRequest;
+    supertest(app)
+      .post(`${constants.ROUTE_BASE}${constants.OCC_IMAGE_PROCESS_ENDPOINT}`)
+      .set({'env': 'preview'})
+      .send(payload)
+      .expect(constants.HTTP_RESPONSE_SUCCESS)
+      .end(function (err, res) {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  }).timeout(config.testTimeout);
 });

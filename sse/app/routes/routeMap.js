@@ -23,7 +23,6 @@ const cors = require('cors');
 const Route = require('./route');
 const constants = require('../../constants');
 const serviceBasic = require('../api/serviceBasic');
-const serviceExternalRequestApi = require('../api/serviceExternalRequestApi');
 
 let corsOptions = {
   origin: '*',
@@ -66,20 +65,11 @@ let routeMap = function (router) {
   new Route({
     router,
     method: constants.HTTP_POST,
-    route: constants.SAY_HELLO,
-    api: serviceBasic.sayHello,
-    testReq: 'serviceBasic-test-req.json',
-    testRes: 'serviceBasic-test-res.json'
+    route: constants.OCC_IMAGE_PROCESS_ENDPOINT,
+    api: serviceBasic.processImage,
+    testReq: 'processImage-resize-req.json',
+    testRes: 'processImage-res.json'
   });
-  new Route({
-    router,
-    method: constants.HTTP_POST,
-    route: constants.GET_PLANETS,
-    api: serviceExternalRequestApi.getPlanet,
-    testReq: 'test2-req.json',
-    testRes: 'test2-res.json'
-  });
-
   return router;
 };
 module.exports = routeMap;

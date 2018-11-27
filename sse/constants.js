@@ -15,12 +15,12 @@
  * @description constants
  **/
 module.exports = {
-  SSE_NAME: 'starter',
+  SSE_NAME: 'image-processor',
   SSE_VERSION: '1',
   TEST_FOLDER: 'tests',
   NODE_EXTENSION_SERVER_PORT: 11372,
   NODE_EXTENSION_TEST_PORT: 3099,
-  ROUTE_BASE: '/v1/starter',
+  ROUTE_BASE: '/v1/image-processor',
   //
   HTTP_GET: 'GET',
   HTTP_POST: 'POST',
@@ -37,15 +37,5 @@ module.exports = {
   NODE_ENV_DEVELOPMENT: 'development',
   NODE_ENV_TEST: 'test',
   //
-  SAY_HELLO: '/servicebasic/sayHello',
-  GET_PLANETS: '/serviceexternal/getPlanet',
-  //
-  OCC_DEPLOY_HOST: '{HOST',
-  OCC_ENDPOINT_CURRENT_PROFILE: '/ccstoreui/v1/profiles/current',
-  OCC_ENDPOINT_PROFILE: '/ccstoreui/v1/profiles',
-  OCC_ENDPOINT_LOGIN: '/ccadmin/v1/login',
-  OCC_ENV_PREVIEW: 'preview',
-  //
-  SWAPI_HOST: 'swapi.co',
-  EXTERNAL_RREQUEST_1_PATH: '/api/planets/1/'
+  OCC_IMAGE_PROCESS_ENDPOINT: '/image-processor',
 };
