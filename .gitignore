@@ -8,6 +8,13 @@ tomcat
 # Default excludes
 #
 
+*.jpg
+*.png
+*.tif
+*.tiff
+*.gif
+
+
 # Binaries
 *.7z
 *.dmg
