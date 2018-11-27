@@ -67,8 +67,8 @@
   },
   "publicUrls": [
     "/ccstorex/custom/v1/",
-    "/ccstorex/custom/v1/image-processor/version",
-    "/ccstorex/custom/v1/image-processor"
+    "/ccstorex/custom/v1/imageprocessor/version",
+    "/ccstorex/custom/v1/imageprocessor"
   ],
   "authenticatedUrls": [],
   "translations": [

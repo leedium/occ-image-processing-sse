@@ -20,7 +20,7 @@ module.exports = {
   TEST_FOLDER: 'tests',
   NODE_EXTENSION_SERVER_PORT: 11372,
   NODE_EXTENSION_TEST_PORT: 3099,
-  ROUTE_BASE: '/v1/image-processor',
+  ROUTE_BASE: '/v1/imageprocessor',
   //
   HTTP_GET: 'GET',
   HTTP_POST: 'POST',
@@ -37,5 +37,5 @@ module.exports = {
   NODE_ENV_DEVELOPMENT: 'development',
   NODE_ENV_TEST: 'test',
   //
-  OCC_IMAGE_PROCESS_ENDPOINT: '/image-processor',
+  OCC_IMAGE_PROCESS_ENDPOINT: '/imageprocessor',
 };

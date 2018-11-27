@@ -65,6 +65,7 @@ describe('====== Routes ======', function () {
           return;
         }
         const {body} = res;
+        console.log(JSON.stringify(body, null, 2))
         expect(body).to.have.keys('imgData','sharpOptions')
         done();
       });
