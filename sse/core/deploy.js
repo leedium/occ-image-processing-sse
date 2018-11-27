@@ -28,7 +28,7 @@ const config = require('../config.json');
 const loginToOCC = () => {
   return axios({
     method: 'post',
-    url: `${constants.OCC_DEPLOY_HOST}/ccadmin/v1/login`,
+    url: `${config.occAdminUrl}ccadmin/v1/login`,
     responseType: 'json',
     params: {
       'grant_type': 'client_credentials'
@@ -51,7 +51,7 @@ function deploySSE () {
 
       let options = {
         method: 'POST',
-        url: `${constants.OCC_DEPLOY_HOST}/ccadmin/v1/serverExtensions`,
+        url: `${config.occAdminUrl}ccadmin/v1/serverExtensions`,
         headers:
           {
             connection: 'keep-alive, close',
@@ -82,6 +82,9 @@ function deploySSE () {
           console.log(`${fileName} deployed successfully.`, body);
         }
       });
+    })
+    .catch(err => {
+      console.log(err);
     });
 }
 

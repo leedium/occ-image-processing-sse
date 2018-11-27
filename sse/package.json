@@ -1,5 +1,5 @@
 {
-  "name": "occ-image-processing-sse",
+  "name": "occ-image-processing",
   "version": "1.0.0",
   "description": "Starter to help build and deploy Server Side Extensions to Oracle Commerce Cloud",
   "main": "app/index.js",
@@ -19,21 +19,21 @@
     "package:shx:lstmp": "shx ls",
     "package:clean:npm": "npm uninstall --save-dev eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard eslint-plugin-json expect.js mocha form-data nconf nodemon supertest yargs",
     "deploy": "npm-run-all eslint test:nowatch package:shx:mkdir package:shx:copytmp package:shx:cdtmp",
-    "package:zip": "bestzip starter-sse.zip ./*",
+    "package:zip": "bestzip image-processor-sse.zip ./*",
     "package:deploy": "npm-run-all eslint package:init package:clean package:zip package:upload",
     "package:upload": "node core/deploy.js"
   },
   "postinstall": "echo done",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leedium/occ-image-processing-sse.git"
+    "url": "git+https://github.com/leedium/occ-image-processing.git"
   },
   "author": "LEEDIUM",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/leedium/occ-image-processing-sse/issues"
+    "url": "https://github.com/leedium/occ-image-processing/issues"
   },
-  "homepage": "https://github.com/leedium/occ-image-processing-sse",
+  "homepage": "https://github.com/leedium/occ-image-processing",
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",

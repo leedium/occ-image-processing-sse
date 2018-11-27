@@ -14,7 +14,7 @@ const supertest = require('supertest');
 const constants = require('../constants');
 const config = require('../config.json');
 const readJSONFile = require('../core/helpers').readJSONFile;
-const resizeRequest = readJSONFile(`../${config.testFolder}/json/processImage-resize-req.json`)
+const resizeRequest = readJSONFile(`../${config.testFolder}/json/processImage-resize-req.json`);
 
 describe('====== Routes ======', function () {
   let app;
@@ -53,11 +53,10 @@ describe('====== Routes ======', function () {
    */
   it(`- Resizes a base64 image \n\t${constants.OCC_IMAGE_PROCESS_ENDPOINT} \n`, function (done) {
     global.testMode = false;
-    let payload = resizeRequest;
     supertest(app)
       .post(`${constants.ROUTE_BASE}${constants.OCC_IMAGE_PROCESS_ENDPOINT}`)
       .set({'env': 'preview'})
-      .send(payload)
+      .send(resizeRequest)
       .expect(constants.HTTP_RESPONSE_SUCCESS)
       .end(function (err, res) {
         if (err) {
@@ -65,8 +64,8 @@ describe('====== Routes ======', function () {
           return;
         }
         const {body} = res;
-        console.log(JSON.stringify(body, null, 2))
-        expect(body).to.have.keys('imgData','sharpOptions')
+        // console.log(JSON.stringify(body, null, 2))
+        expect(body).to.have.keys('imgData', 'sharpOptions');
         done();
       });
   }).timeout(config.testTimeout);

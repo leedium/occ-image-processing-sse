@@ -14,7 +14,6 @@
  * @dateCreated 31/07/2018
  * @description interface for all the homchoice utility sse enpoints
  **/
-const fs = require('fs');
 
 const transformer = require('./transformer');
 const constants = require('../../constants');
@@ -24,7 +23,7 @@ const removeMimeTypes = val => val.replace(/^data:image\/(png|gif|jpeg);base64,/
 
 // Add serialized Promise.each to the
 class ServiceBasic {
-  static processImage(req) {
+  static processImage (req) {
     return new Promise(async (resolve) => {
       const {imgData, transforms} = req.body;
       let imageBuffer = Buffer.from(removeMimeTypes(imgData), 'base64');
@@ -35,7 +34,7 @@ class ServiceBasic {
        * @param arr
        * @returns {IterableIterator<Promise<any | never>>}
        */
-      function* chainTransforms(img, arr) {
+      function * chainTransforms (img, arr) {
         let counter = 0;
         let buf = img;
         /**
@@ -53,7 +52,7 @@ class ServiceBasic {
             resolve(({
               statusCode: constants.HTTP_RESPONSE_SUCCESS,
               body: {
-                imgData: new Buffer.from(updatedBuffer).toString('base64'),
+                imgData: Buffer.from(updatedBuffer).toString('base64'),
                 sharpOptions: transforms
               }
             }));
@@ -63,12 +62,11 @@ class ServiceBasic {
         // Start the loop here and yield for the transformation promise
         for (const option of arr) {
           buf = yield transformer.transform(buf, option).then(transformCallback);
-          fs.writeFile(`test${counter}.jpg`, buf, 'binary', () => {});
         }
       }
 
       const genTransforms = chainTransforms(imageBuffer, transforms);
-      genTransforms.next(imageBuffer).value;
+      genTransforms.next(imageBuffer).value; // eslint-disable-line
     });
   }
 }

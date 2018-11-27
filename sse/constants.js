@@ -14,6 +14,7 @@
  * @dateCreated 13/07/2018
  * @description constants
  **/
+
 module.exports = {
   SSE_NAME: 'image-processor',
   SSE_VERSION: '1',
@@ -38,4 +39,5 @@ module.exports = {
   NODE_ENV_TEST: 'test',
   //
   OCC_IMAGE_PROCESS_ENDPOINT: '/imageprocessor',
+  OCC_DEPLOY_HOST: 'https://ccadmin-test-zbba.oracleoutsourcing.com/'
 };

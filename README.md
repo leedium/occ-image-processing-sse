@@ -3,6 +3,27 @@
 [Server-Side Extension](https://docs.oracle.com/cd/E97801_01/Cloud.18C/ExtendingCC/html/s4303developserversideextensions01.html "Server Side Extensions in OCC")
 to handle image processing in [Oracle Commerce Cloud]([Oracle Commerce Cloud](https://cloud.oracle.com/en_US/commerce-cloud "Oracle Commerce Cloud")).
 
+# ATTENTION
+This module was created for POC purposes.  You will be unable to install this in your OCC Instnce as
+spawnSync processes are prohibited on the server:
+```$xslt
+Error: Function call spawnSync() is prohibited in this environment.
+at /tzbba0c0/fmw/extensionserver/server1/occsapp/custom-server/node_modules/restrict/lib/index.js:96:19
+at Object.<anonymous> (/tzbba0c0/fmw/extensionserver/server1/occsapp/custom-server/extensions/extracted/image-processor-sse/node_modules/detect-libc/lib/detect-libc.js:44:15)
+at Module._compile (module.js:652:30)
+at Object.Module._extensions..js (module.js:663:10)
+at Module.load (module.js:565:32)
+at tryModuleLoad (module.js:505:12)
+Function.Module._load (module.js:497:3)
+Module.require (module.js:596:17)
+require (internal/module.js:11:18) Object.<anonymous> (/tzbba0c0/fmw/extensionserver/server1/occsapp/custom-server/extensions/extracted/image-processor-sse/node_modules/sharp/lib/platform.js:3:20)
+at Module._compile (module.js:652:30)\n    at Object.Module._extensions..js (module.js:663:10)
+at Module.load (module.js:565:32)
+at tryModuleLoad (module.js:505:12)
+Function.Module._load (module.js:497:3)
+Module.require (module.js:596:17)\n2018-11-27T22:56:38.557Z - error: Worker 49
+```
+
 Wraps the [lovell/sharp](https://github.com/lovell/sharp) node module. 
 
 ## Supported transform
@@ -23,8 +44,8 @@ Install all dependencies required by module
 $ npm i
 ```
 
-*It's important to not tha you must use the OCC version of Node when installing
-the dependencies. Current version is:
+~*It's important to not tha you must use the OCC version of Node when installing
+the dependencies. Current version is:~
 `node_version": "v8.11.1`
 
 

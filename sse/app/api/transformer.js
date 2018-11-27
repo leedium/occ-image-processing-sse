@@ -21,9 +21,9 @@ class ServiceExternalRequestTransformer {
    * Performs a resize
    * @returns {Promise<any>}
    */
-  static transform(buffer, {method,options}) {
+  static transform (buffer, {method, options}) {
     //  do whatever tansformations you need to do here, 'don't do anything
-    const pipeline = sharp(buffer)
+    const pipeline = sharp(buffer);
     pipeline.withMetadata();
     switch (method) {
       case 'resize':
@@ -41,7 +41,6 @@ class ServiceExternalRequestTransformer {
     }
     pipeline.jpeg();
     return pipeline.toBuffer();
-
   }
 }
 

@@ -1,5 +1,7 @@
 npm-debug.log
 *.md
+*.jpg
+/tests
 /ssl
 
 
