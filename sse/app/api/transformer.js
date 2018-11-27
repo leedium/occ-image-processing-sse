@@ -18,17 +18,29 @@ const sharp = require('sharp');
 
 class ServiceExternalRequestTransformer {
   /**
-   * Transform intellisense
+   * Performs a resize
    * @returns {Promise<any>}
    */
-  static resize (buffer, {options}) {
+  static transform(buffer, {method,options}) {
     //  do whatever tansformations you need to do here, 'don't do anything
-    return (
-      sharp(buffer)
-        .resize(options)
-        // .toFile('test.jpg') // use for testing
-        .jpeg()
-        .toBuffer() );
+    const pipeline = sharp(buffer)
+    pipeline.withMetadata();
+    switch (method) {
+      case 'resize':
+        pipeline.resize(options);
+        break;
+      case 'rotate':
+        pipeline.rotate(options.angle);
+        break;
+      case 'flip':
+        pipeline.flip();
+        break;
+      case 'flop':
+        pipeline.flop();
+        break;
+    }
+    pipeline.jpeg();
+    return pipeline.toBuffer();
 
   }
 }

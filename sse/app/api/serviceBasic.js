@@ -23,31 +23,52 @@ const constants = require('../../constants');
 const removeMimeTypes = val => val.replace(/^data:image\/(png|gif|jpeg);base64,/, '');
 
 // Add serialized Promise.each to the
-const chainTransforms = (arr, func, extra) => Promise.all(arr.map(async item => await func(item)));
-
 class ServiceBasic {
   static processImage(req) {
     return new Promise(async (resolve) => {
-      const {imgData, sharpOptions} = req.body;
+      const {imgData, transforms} = req.body;
       let imageBuffer = Buffer.from(removeMimeTypes(imgData), 'base64');
 
-      const data = await chainTransforms(sharpOptions, (option) => {
-        let prom = Promise.resolve();
-        switch (option.method) {
-          case 'resize':
-            prom = transformer.resize(imageBuffer, option);
-            break;
+      /**
+       * Generator to perform chaining operation
+       * @param img
+       * @param arr
+       * @returns {IterableIterator<Promise<any | never>>}
+       */
+      function* chainTransforms(img, arr) {
+        let counter = 0;
+        let buf = img;
+        /**
+         * Callback to be performed when promise completes.
+         * Upon completion continue the generator.
+         * if the counter reachs the array length then complete the generator
+         * and resolve;
+         * @param updatedBuffer
+         */
+        const transformCallback = updatedBuffer => {
+          genTransforms.next(updatedBuffer);
+          counter += 1;
+          if (counter === arr.length) {
+            genTransforms.return();
+            resolve(({
+              statusCode: constants.HTTP_RESPONSE_SUCCESS,
+              body: {
+                imgData: new Buffer.from(updatedBuffer).toString('base64'),
+                sharpOptions: transforms
+              }
+            }));
+          }
+        };
+
+        // Start the loop here and yield for the transformation promise
+        for (const option of arr) {
+          buf = yield transformer.transform(buf, option).then(transformCallback);
+          fs.writeFile(`test${counter}.jpg`, buf, 'binary', () => {});
         }
-        return prom;
-      });
-      let b64 = Buffer.from(data[0], 'binary').toString('base64');
-      resolve(({
-        statusCode: constants.HTTP_RESPONSE_SUCCESS,
-        body: {
-          imgData: b64,
-          sharpOptions: sharpOptions
-        }
-      }));
+      }
+
+      const genTransforms = chainTransforms(imageBuffer, transforms);
+      genTransforms.next(imageBuffer).value;
     });
   }
 }

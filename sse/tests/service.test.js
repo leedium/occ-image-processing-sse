@@ -16,7 +16,7 @@ const config = require('../config.json');
 const readJSONFile = require('../core/helpers').readJSONFile;
 const resizeRequest = readJSONFile(`../${config.testFolder}/json/processImage-resize-req.json`)
 
-describe('====== Utility Routes ======', function () {
+describe('====== Routes ======', function () {
   let app;
   before(function () {
     app = require('../index');
@@ -49,8 +49,7 @@ describe('====== Utility Routes ======', function () {
   }).timeout(config.testTimeout);
 
   /**
-   * Tests a vaild Response from the live endpoint
-   * Live Endpoint : for URL see constants.SEARCH_ENDPOINT
+   * Tests 2 Chained resize transformations height 200, height 50, height 10
    */
   it(`- Resizes a base64 image \n\t${constants.OCC_IMAGE_PROCESS_ENDPOINT} \n`, function (done) {
     global.testMode = false;
@@ -65,6 +64,8 @@ describe('====== Utility Routes ======', function () {
           done(err);
           return;
         }
+        const {body} = res;
+        expect(body).to.have.keys('imgData','sharpOptions')
         done();
       });
   }).timeout(config.testTimeout);
